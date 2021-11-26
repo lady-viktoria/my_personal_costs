@@ -5,7 +5,12 @@
       <router-link to="/about">About</router-link>
     </div>
     <router-view /> -->
-    <AddPaymentForm @add-payment="addNewPayment" />
+    <header>
+      <h1>My personal costs</h1>
+    </header>
+    <button @click="showForm()">ADD NEW COST +</button>
+    <p></p>
+    <AddPaymentForm v-if="addForm" @add-payment="addNewPayment" />
     <PaymentsDisplay :show="show" :items="paymentsList" />
 
     <!-- <PaymentsDisplay show /> -->
@@ -25,6 +30,7 @@ export default {
     return {
       show: true,
       paymentsList: [],
+      addForm: false,
     };
   },
   methods: {
@@ -47,6 +53,9 @@ export default {
         },
       ];
     },
+    showForm() {
+      this.addForm = !this.addForm;
+    },
     addNewPayment(payment) {
       console.log("addNewPayment", payment);
       this.paymentsList.push(payment);
@@ -59,7 +68,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" module>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

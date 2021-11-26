@@ -1,7 +1,21 @@
 <template>
   <div>
-    <div v-if="show" :class="[$style.show]">Props is true</div>
-    <div v-for="(item, index) in items" :key="index">{{ item }}</div>
+    <!-- <div v-if="show" :class="[$style.show]">Props is true</div> -->
+    <!-- <div v-for="(item, index) in items" :key="index">{{ item }}</div> -->
+    <table id="table" cellpadding="10">
+      <tr>
+        <th>#</th>
+        <th>Date</th>
+        <th>Category</th>
+        <th>Value</th>
+      </tr>
+      <tr v-for="(item, index) in items" :key="index">
+        <td align="center">{{ index + 1 }}</td>
+        <td>{{ item.date }}</td>
+        <td>{{ item.category }}</td>
+        <td align="center">{{ item.value }}</td>
+      </tr>
+    </table>
   </div>
 </template>
 

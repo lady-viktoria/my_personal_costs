@@ -3,7 +3,7 @@
     <input type="text" placeholder="Value" v-model="value" />
     <input type="text" placeholder="Category" v-model="category" />
     <input type="text" placeholder="Date" v-model="date" />
-    <button @click="addPayment">Add</button>
+    <button @click="addPayment()">Add</button>
   </div>
 </template>
 
@@ -36,7 +36,15 @@ export default {
       };
       this.$emit("add-payment", data);
       //   console.log("add");
+      this.value = "";
+      this.category = "";
+      this.date = "";
     },
+    // clean() {
+    //   this.value = "";
+    //   this.category = "";
+    //   this.date = "";
+    // },
   },
 };
 </script>
