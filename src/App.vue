@@ -31,11 +31,27 @@ export default {
       show: true,
       paymentsList: [],
       addForm: false,
+      curPage: 1,
     };
   },
   methods: {
     fetchData() {
       return [
+        {
+          date: "28.03.2021",
+          category: "Food",
+          value: 169,
+        },
+        {
+          date: "20.03.2021",
+          category: "Sport",
+          value: 400,
+        },
+        {
+          date: "26.03.2021",
+          category: "Internet",
+          value: 300,
+        },
         {
           date: "28.03.2021",
           category: "Food",
@@ -61,6 +77,7 @@ export default {
       this.paymentsList.push(payment);
     },
   },
+
   created() {
     this.paymentsList = this.fetchData();
     console.log(this.paymentsList);
