@@ -10,7 +10,11 @@
     </header>
     <button @click="showForm()">ADD NEW COST +</button>
     <p></p>
-    <AddPaymentForm v-if="addForm" @add-payment="addNewPayment" />
+    <AddPaymentForm
+      v-if="addForm"
+      @add-payment="addNewPayment"
+      :categoryList="categoryList"
+    />
     <PaymentsDisplay :show="show" :items="paymentsList" />
 
     <!-- <PaymentsDisplay show /> -->
@@ -20,6 +24,7 @@
 <script>
 import PaymentsDisplay from "./components/PaymentsDisplay.vue";
 import AddPaymentForm from "./components/AddPaymentForm.vue";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 export default {
   name: "App",
   components: {
@@ -29,58 +34,67 @@ export default {
   data() {
     return {
       show: true,
-      paymentsList: [],
+      // paymentsList: [],
       addForm: false,
       curPage: 1,
     };
   },
   methods: {
-    fetchData() {
-      return [
-        {
-          date: "28.03.2021",
-          category: "Food",
-          value: 169,
-        },
-        {
-          date: "20.03.2021",
-          category: "Sport",
-          value: 400,
-        },
-        {
-          date: "26.03.2021",
-          category: "Internet",
-          value: 300,
-        },
-        {
-          date: "28.03.2021",
-          category: "Food",
-          value: 169,
-        },
-        {
-          date: "20.03.2021",
-          category: "Sport",
-          value: 400,
-        },
-        {
-          date: "26.03.2021",
-          category: "Internet",
-          value: 300,
-        },
-      ];
-    },
+    ...mapMutations(["ADD_PAYMENT_DATA"]),
+    ...mapActions(["fetchData", "fetchCategoryListData"]),
+
+    // fetchData() {
+    //   return [
+    //     {
+    //       date: "28.03.2021",
+    //       category: "Food",
+    //       value: 169,
+    //     },
+    //     {
+    //       date: "20.03.2021",
+    //       category: "Sport",
+    //       value: 400,
+    //     },
+    //     {
+    //       date: "26.03.2021",
+    //       category: "Internet",
+    //       value: 300,
+    //     },
+    //     {
+    //       date: "28.03.2021",
+    //       category: "Food",
+    //       value: 169,
+    //     },
+    //     {
+    //       date: "20.03.2021",
+    //       category: "Sport",
+    //       value: 400,
+    //     },
+    //     {
+    //       date: "26.03.2021",
+    //       category: "Internet",
+    //       value: 300,
+    //     },
+    //   ];
+    // },
     showForm() {
       this.addForm = !this.addForm;
     },
     addNewPayment(payment) {
-      console.log("addNewPayment", payment);
-      this.paymentsList.push(payment);
+      // console.log("addNewPayment", payment);
+      // this.paymentsList.push(payment);
+      this.ADD_PAYMENT_DATA(payment);
     },
   },
-
+  computed: {
+    ...mapGetters(["paymentsList", "categoryList"]),
+  },
   created() {
-    this.paymentsList = this.fetchData();
-    console.log(this.paymentsList);
+    // this.paymentsList = this.fetchData();
+    // console.log(this.paymentsList);
+    //this.$store.dispatch("fetchData");
+    this.fetchData();
+    this.fetchCategoryListData();
   },
 };
 </script>
